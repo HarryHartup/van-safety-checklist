@@ -9,8 +9,10 @@ const checklist = {
     "Number plate lights",
     "Lights clean and secure",
     "Windscreen clear of cracks",
+    "Windscreen clean inside",
     "Mirrors clean and secure"
   ],
+
   "Tyres & Wheels": [
     "Tread above legal limit",
     "No cuts or bulges",
@@ -19,18 +21,22 @@ const checklist = {
     "No damaged wheels",
     "Spare wheel or repair kit"
   ],
+
   "Brakes & Steering": [
     "Foot brake responsive",
     "Handbrake holds vehicle",
     "Steering free from play",
     "No unusual noises"
   ],
+
   "Bodywork & Doors": [
     "No sharp edges",
     "Doors open and close securely",
     "Sliding/rear doors latch correctly",
+    "Vehicle locks correctly",
     "No visible fluid leaks"
   ],
+
   "Cab & Controls": [
     "Seat secure",
     "Seatbelt working",
@@ -38,14 +44,16 @@ const checklist = {
     "Wipers working",
     "Washers working",
     "Heater/demister working",
-    "No warning lights showing"
+    "No warning lights showing",
+    "Fuel card present in van"
   ],
+
   "Safety Equipment": [
     "First aid kit",
     "Fire extinguisher (if required)",
-    "Warning triangle",
     "Hi-vis vest"
   ],
+
   "Load Area": [
     "Load secure",
     "Bulkhead secure",
