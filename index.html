@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Van Safety Checklist</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<h1>🚐 Van Safety Checklist</h1>
+
+<label>Vehicle Registration</label>
+<input id="reg" placeholder="AB12 CDE">
+
+<label>Mileage</label>
+<input id="mileage" type="number" placeholder="123456">
+
+<label>Safe to drive?</label>
+<select id="safe">
+  <option value="YES">YES</option>
+  <option value="NO">NO</option>
+</select>
+
+<label>MOT Status</label>
+<input id="mot" placeholder="Valid until 01/01/2027">
+
+<label>Tax Status</label>
+<input id="tax" placeholder="Taxed until 01/06/2026">
+
+<p class="hint">
+  Check official info:
+  <a href="https://www.gov.uk/check-vehicle-tax" target="_blank">
+    gov.uk vehicle checker
+  </a>
+</p>
+
+<div id="checklist"></div>
+
+<h2>📝 Notes</h2>
+<textarea id="notes" placeholder="Additional notes..."></textarea>
+
+<h2>📸 Photos</h2>
+<input type="file" id="photos" accept="image/*" capture="environment" multiple>
+
+<button id="export">📄 Export PDF</button>
+
+<script src="app.js"></script>
+</body>
+</html>
