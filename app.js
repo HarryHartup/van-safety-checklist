@@ -19,7 +19,6 @@ const checklist = {
     "Correct tyre pressures",
     "Wheel nuts present",
     "No damaged wheels",
-    "Spare wheel or repair kit"
   ],
 
   "Brakes & Steering": [
