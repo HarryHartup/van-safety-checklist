@@ -1,0 +1,56 @@
+body {
+  font-family: system-ui, sans-serif;
+  padding: 1rem;
+  max-width: 700px;
+  margin: auto;
+}
+
+label {
+  display: block;
+  margin-top: 0.8rem;
+  font-weight: 600;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.2rem;
+}
+
+.section {
+  margin-top: 1.5rem;
+}
+
+.item {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+}
+
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+button {
+  flex: 1;
+  padding: 0.8rem;
+  font-size: 1rem;
+}
+
+.pass { background: #2ecc71; color: white; }
+.fail { background: #e74c3c; color: white; }
+
+#export {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+.hint {
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
