@@ -1,50 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Van Safety Checklist</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vehicle Inspection</title>
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
+
 <body>
 
-<h1>🚐 Van Safety Checklist</h1>
+<div class="container">
+
+<h1>Vehicle Inspection</h1>
+
+<div class="inspection-type">
+<h3>Inspection Type</h3>
+<div class="toggle">
+<button id="preBtn" class="toggle-btn active" onclick="setInspection('Pre')">Pre</button>
+<button id="postBtn" class="toggle-btn" onclick="setInspection('Post')">Post</button>
+</div>
+<input type="hidden" id="inspectionType" value="Pre">
+</div>
+
+<div class="vehicle-info">
 
 <label>Vehicle Registration</label>
-<input id="reg" placeholder="AB12 CDE">
+<input type="text" id="reg">
+
+<a class="gov-link" target="_blank"
+href="https://vehicleenquiry.service.gov.uk/">
+Check MOT & Tax
+</a>
 
 <label>Mileage</label>
-<input id="mileage" type="number" placeholder="123456">
+<input type="number" id="mileage">
 
-<label>Safe to drive?</label>
-<select id="safe">
-  <option value="YES">YES</option>
-  <option value="NO">NO</option>
-</select>
+</div>
 
-<label>MOT Status</label>
-<input id="mot" placeholder="Valid until 01/01/2027">
+<div class="safe-drive">
+<h3>Safe To Drive?</h3>
 
-<label>Tax Status</label>
-<input id="tax" placeholder="Taxed until 01/06/2026">
+<div class="toggle">
+<button id="safeBtn" class="toggle-btn active" onclick="setSafe(true)">YES</button>
+<button id="unsafeBtn" class="toggle-btn" onclick="setSafe(false)">NO</button>
+</div>
 
-<p class="hint">
-  Official vehicle info:
-  <a href="https://vehicleenquiry.service.gov.uk/" target="_blank">
-    vehicleenquiry.service.gov.uk
-  </a>
-</p>
+<input type="hidden" id="safeToDrive" value="Yes">
+</div>
 
 <div id="checklist"></div>
 
-<h2>📝 Notes</h2>
-<textarea id="notes" placeholder="Additional notes..."></textarea>
+<h3>Notes</h3>
+<textarea id="notes"></textarea>
 
-<h2>📸 Photos</h2>
-<input type="file" id="photos" accept="image/*" capture="environment" multiple>
+<h3>Upload Photos</h3>
+<input type="file" id="photoUpload" multiple accept="image/*">
 
-<button id="export">📄 Export PDF</button>
+<button class="export" onclick="exportPDF()">Export PDF</button>
+
+</div>
 
 <script src="app.js"></script>
+
 </body>
 </html>
