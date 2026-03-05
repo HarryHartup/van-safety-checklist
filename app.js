@@ -1,158 +1,205 @@
 const checklist = {
-  "Lights & Visibility": [
-    "Headlights (dipped & main)",
-    "Side lights",
-    "Brake lights",
-    "Indicators",
-    "Hazard lights",
-    "Reverse light",
-    "Number plate lights",
-    "Lights clean and secure",
-    "Windscreen clear of cracks",
-    "Windscreen clean inside",
-    "Mirrors clean and secure"
-  ],
 
-  "Tyres & Wheels": [
-    "Tread above legal limit",
-    "No cuts or bulges",
-    "Correct tyre pressures",
-    "Wheel nuts present",
-    "No damaged wheels",
-  ],
+"Lights & Visibility":[
+"Headlights (dipped & main)",
+"Side lights",
+"Brake lights",
+"Indicators",
+"Hazard lights",
+"Reverse light",
+"Number plate lights",
+"Lights clean and secure",
+"Windscreen clear of cracks",
+"Windscreen clean inside",
+"Mirrors clean and secure"
+],
 
-  "Brakes & Steering": [
-    "Foot brake responsive",
-    "Handbrake holds vehicle",
-    "Steering free from play",
-    "No unusual noises"
-  ],
+"Tyres & Wheels":[
+"Tread above legal limit",
+"No cuts or bulges",
+"Correct tyre pressures",
+"Wheel nuts present",
+"No damaged wheels",
+"Spare wheel or repair kit"
+],
 
-  "Bodywork & Doors": [
-    "No sharp edges",
-    "Doors open and close securely",
-    "Sliding/rear doors latch correctly",
-    "Vehicle locks correctly",
-    "No visible fluid leaks"
-  ],
+"Brakes & Steering":[
+"Foot brake responsive",
+"Handbrake holds vehicle",
+"Steering free from play",
+"No unusual noises"
+],
 
-  "Cab & Controls": [
-    "Seat secure",
-    "Seatbelt working",
-    "Horn works",
-    "Wipers working",
-    "Washers working",
-    "Heater/demister working",
-    "No warning lights showing",
-    "Fuel card present in van"
-  ],
+"Bodywork & Doors":[
+"No sharp edges",
+"Doors open and close securely",
+"Sliding/rear doors latch correctly",
+"Vehicle locks correctly",
+"No visible fluid leaks"
+],
 
-  "Safety Equipment": [
-    "First aid kit",
-    "Fire extinguisher (if required)",
-    "Hi-vis vest"
-  ],
+"Cab & Controls":[
+"Seat secure",
+"Seatbelt working",
+"Horn works",
+"Wipers working",
+"Washers working",
+"Heater/demister working",
+"No warning lights showing",
+"Fuel card present in van"
+],
 
-  "Load Area": [
-    "Load secure",
-    "Bulkhead secure",
-    "No loose items",
-    "Vehicle not overloaded"
-  ]
+"Safety Equipment":[
+"First aid kit",
+"Fire extinguisher (if required)",
+"Hi-vis vest"
+],
+
+"Load Area":[
+"Load secure",
+"Bulkhead secure",
+"No loose items",
+"Vehicle not overloaded"
+]
+
 };
 
-const state = {};
-const photos = [];
-const checklistEl = document.getElementById("checklist");
+let results = {};
 
-for (const section in checklist) {
-  const sectionDiv = document.createElement("div");
-  sectionDiv.className = "section";
-  sectionDiv.innerHTML = `<h2>${section}</h2>`;
+function setInspection(type){
 
-  checklist[section].forEach(item => {
-    const div = document.createElement("div");
-    div.className = "item";
+document.getElementById("inspectionType").value=type
 
-    const label = document.createElement("p");
-    label.textContent = item;
+document.getElementById("preBtn").classList.remove("active")
+document.getElementById("postBtn").classList.remove("active")
 
-    const buttons = document.createElement("div");
-    buttons.className = "buttons";
-
-    const pass = document.createElement("button");
-    pass.textContent = "PASS";
-    pass.className = "pass";
-
-    const fail = document.createElement("button");
-    fail.textContent = "FAIL";
-    fail.className = "fail";
-
-    const time = document.createElement("small");
-
-    const setStatus = status => {
-      const timestamp = new Date().toLocaleString();
-      state[item] = { status, timestamp };
-      time.textContent = `${status.toUpperCase()} at ${timestamp}`;
-    };
-
-    pass.onclick = () => setStatus("pass");
-    fail.onclick = () => setStatus("fail");
-
-    buttons.append(pass, fail);
-    div.append(label, buttons, time);
-    sectionDiv.appendChild(div);
-  });
-
-  checklistEl.appendChild(sectionDiv);
+if(type==="Pre"){
+document.getElementById("preBtn").classList.add("active")
+}else{
+document.getElementById("postBtn").classList.add("active")
 }
 
-document.getElementById("photos").onchange = e => {
-  [...e.target.files].forEach(file => {
-    const reader = new FileReader();
-    reader.onload = ev => photos.push(ev.target.result);
-    reader.readAsDataURL(file);
-  });
-};
+}
 
-document.getElementById("export").onclick = () => {
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF();
-  let y = 10;
+function setSafe(value){
 
-  const reg = document.getElementById("reg").value || "N/A";
-  const mileage = document.getElementById("mileage").value || "N/A";
-  const safe = document.getElementById("safe").value;
-  const mot = document.getElementById("mot").value || "N/A";
-  const tax = document.getElementById("tax").value || "N/A";
+document.getElementById("safeToDrive").value=value?"Yes":"No"
 
-  pdf.setFontSize(14);
-  pdf.text(`Vehicle Reg: ${reg}`, 10, y); y += 7;
-  pdf.text(`Mileage: ${mileage}`, 10, y); y += 7;
-  pdf.text(`Safe to Drive: ${safe}`, 10, y); y += 7;
-  pdf.text(`MOT: ${mot}`, 10, y); y += 7;
-  pdf.text(`Tax: ${tax}`, 10, y); y += 10;
+document.getElementById("safeBtn").classList.remove("active")
+document.getElementById("unsafeBtn").classList.remove("active")
 
-  pdf.setFontSize(11);
-  for (const [item, data] of Object.entries(state)) {
-    pdf.text(`${item}: ${data.status.toUpperCase()} (${data.timestamp})`, 10, y);
-    y += 5;
-    if (y > 270) { pdf.addPage(); y = 10; }
-  }
+if(value){
+document.getElementById("safeBtn").classList.add("active")
+}else{
+document.getElementById("unsafeBtn").classList.add("active")
+}
 
-  y += 10;
-  pdf.text("Notes:", 10, y);
-  y += 6;
-  pdf.text(pdf.splitTextToSize(
-    document.getElementById("notes").value || "None",
-    180
-  ), 10, y);
+}
 
-  photos.forEach(img => {
-    pdf.addPage();
-    pdf.text("Photo Evidence", 10, 10);
-    pdf.addImage(img, "JPEG", 10, 20, 180, 120);
-  });
+function buildChecklist(){
 
-  pdf.save(`van-inspection-${reg}.pdf`);
-};
+const container=document.getElementById("checklist")
+
+Object.keys(checklist).forEach(section=>{
+
+const sec=document.createElement("div")
+sec.className="section"
+
+sec.innerHTML=`<h3>${section}</h3>`
+
+checklist[section].forEach(item=>{
+
+const row=document.createElement("div")
+row.className="item"
+
+row.innerHTML=`
+
+<span>${item}</span>
+
+<div class="buttons">
+
+<button class="pass" onclick="record('${item}','Pass')">PASS</button>
+
+<button class="fail" onclick="record('${item}','Fail')">FAIL</button>
+
+</div>
+`
+
+sec.appendChild(row)
+
+})
+
+container.appendChild(sec)
+
+})
+
+}
+
+function record(item,result){
+
+results[item]={
+
+result:result,
+
+time:new Date().toLocaleString()
+
+}
+
+}
+
+async function exportPDF(){
+
+const { jsPDF } = window.jspdf
+
+const doc=new jsPDF()
+
+let y=10
+
+doc.text("Vehicle Inspection Report",10,y)
+
+y+=10
+
+const reg=document.getElementById("reg").value
+const mileage=document.getElementById("mileage").value
+const safe=document.getElementById("safeToDrive").value
+const type=document.getElementById("inspectionType").value
+
+doc.text(`Inspection Type: ${type}`,10,y)
+y+=8
+doc.text(`Vehicle Reg: ${reg}`,10,y)
+y+=8
+doc.text(`Mileage: ${mileage}`,10,y)
+y+=8
+doc.text(`Safe To Drive: ${safe}`,10,y)
+y+=10
+
+Object.keys(results).forEach(item=>{
+
+doc.text(`${item} - ${results[item].result} (${results[item].time})`,10,y)
+
+y+=7
+
+if(y>270){
+doc.addPage()
+y=10
+}
+
+})
+
+const notes=document.getElementById("notes").value
+
+if(notes){
+
+doc.addPage()
+
+doc.text("Notes:",10,10)
+
+doc.text(notes,10,20)
+
+}
+
+doc.save(`inspection_${reg}.pdf`)
+
+}
+
+buildChecklist()
